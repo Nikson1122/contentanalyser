@@ -80,7 +80,7 @@ export default function MyPages() {
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder="Filter pages"
                 aria-label="Filter pages"
-                className="h-10 w-full rounded-lg border border-white/10 bg-surface-900 pl-9 pr-3 text-sm text-slate-200 placeholder:text-slate-500 transition-colors focus:border-accent-500/60"
+                className="h-10 w-full rounded-xl border border-white/10 bg-white/5 pl-9 pr-3 text-sm text-slate-200 placeholder:text-slate-500 transition-colors hover:border-white/20 focus:border-accent-500/60 focus:bg-white/[0.07]"
               />
             </div>
             <p className="text-xs text-slate-500">

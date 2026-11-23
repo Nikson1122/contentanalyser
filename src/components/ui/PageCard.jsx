@@ -14,9 +14,9 @@ export default function PageCard({ page, onEdit, onDelete }) {
   const initial = page.name?.trim().charAt(0).toUpperCase() || '?'
 
   return (
-    <article className="card group flex flex-col gap-4 p-5 transition-colors hover:border-accent-500/30">
+    <article className="card sheen group flex flex-col gap-4 p-5 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent-500/35 hover:shadow-2xl hover:shadow-accent-500/10">
       <div className="flex items-start gap-3">
-        <span className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-accent-500/20 bg-accent-500/10 text-sm font-semibold text-accent-300">
+        <span className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-gradient-to-br from-accent-400/25 to-glow-500/15 text-sm font-bold text-accent-200 shadow-lg shadow-accent-500/10">
           {initial}
         </span>
         <div className="min-w-0 flex-1">

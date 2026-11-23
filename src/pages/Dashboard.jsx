@@ -3,6 +3,8 @@ import {
   ArrowRight,
   BarChart3,
   CheckCircle2,
+  Globe2,
+  Tag,
   Circle,
   FileSpreadsheet,
   History,
@@ -69,27 +71,34 @@ export default function Dashboard() {
 
       {/* Page overview */}
       <section aria-labelledby="pages-overview">
-        <h2 id="pages-overview" className="mb-4 text-sm font-semibold text-white">
+        <h2 id="pages-overview" className="mb-4 text-sm font-semibold tracking-wide text-slate-300">
           Your pages
         </h2>
         {hasPages ? (
           <div className="grid gap-4 sm:grid-cols-3">
-            <div className="card p-5">
-              <p className="text-xs uppercase tracking-wide text-slate-500">Pages managed</p>
-              <p className="mt-2 text-2xl font-semibold text-white">{pages.length}</p>
-            </div>
-            <div className="card p-5">
-              <p className="text-xs uppercase tracking-wide text-slate-500">Platforms</p>
-              <p className="mt-2 text-2xl font-semibold text-white">
-                {new Set(pages.map((page) => page.platform).filter(Boolean)).size}
-              </p>
-            </div>
-            <div className="card p-5">
-              <p className="text-xs uppercase tracking-wide text-slate-500">Niches</p>
-              <p className="mt-2 text-2xl font-semibold text-white">
-                {new Set(pages.map((page) => page.niche).filter(Boolean)).size}
-              </p>
-            </div>
+            {[
+              { label: 'Pages managed', value: pages.length, icon: Layers },
+              {
+                label: 'Platforms',
+                value: new Set(pages.map((page) => page.platform).filter(Boolean)).size,
+                icon: Globe2,
+              },
+              {
+                label: 'Niches',
+                value: new Set(pages.map((page) => page.niche).filter(Boolean)).size,
+                icon: Tag,
+              },
+            ].map(({ label, value, icon: Icon }) => (
+              <div key={label} className="card sheen flex items-center gap-4 p-5">
+                <span className="flex size-11 items-center justify-center rounded-xl border border-white/10 bg-gradient-to-br from-accent-500/20 to-glow-500/10 text-accent-300">
+                  <Icon className="size-5" aria-hidden="true" />
+                </span>
+                <div>
+                  <p className="text-xs uppercase tracking-wider text-slate-500">{label}</p>
+                  <p className="text-2xl font-bold tabular-nums text-white">{value}</p>
+                </div>
+              </div>
+            ))}
           </div>
         ) : (
           <EmptyState
@@ -107,7 +116,7 @@ export default function Dashboard() {
 
       {/* Quick actions */}
       <section aria-labelledby="quick-actions">
-        <h2 id="quick-actions" className="mb-4 text-sm font-semibold text-white">
+        <h2 id="quick-actions" className="mb-4 text-sm font-semibold tracking-wide text-slate-300">
           Quick actions
         </h2>
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -115,16 +124,16 @@ export default function Dashboard() {
             <Link
               key={to}
               to={to}
-              className="card group flex flex-col gap-3 p-5 transition-colors hover:border-accent-500/30"
+              className="card sheen group flex flex-col gap-3 p-5 transition-all duration-200 hover:-translate-y-1 hover:border-accent-500/35 hover:shadow-2xl hover:shadow-accent-500/10"
             >
-              <span className="flex size-10 items-center justify-center rounded-lg border border-accent-500/20 bg-accent-500/10 text-accent-400">
+              <span className="flex size-11 items-center justify-center rounded-xl border border-white/10 bg-gradient-to-br from-accent-500/20 to-glow-500/10 text-accent-300 shadow-lg shadow-accent-500/10 transition-transform duration-200 group-hover:scale-105">
                 <Icon className="size-5" aria-hidden="true" />
               </span>
               <div>
                 <h3 className="text-sm font-semibold text-white">{title}</h3>
                 <p className="mt-1 text-xs leading-relaxed text-slate-400">{description}</p>
               </div>
-              <span className="mt-auto inline-flex items-center gap-1 text-xs font-medium text-accent-400 opacity-0 transition-opacity group-hover:opacity-100">
+              <span className="mt-auto inline-flex items-center gap-1 text-xs font-semibold text-accent-400 opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:opacity-100">
                 Open
                 <ArrowRight className="size-3.5" aria-hidden="true" />
               </span>
@@ -136,7 +145,7 @@ export default function Dashboard() {
       <div className="grid gap-6 lg:grid-cols-5">
         {/* Recent activity */}
         <section aria-labelledby="recent-activity" className="lg:col-span-3">
-          <h2 id="recent-activity" className="mb-4 text-sm font-semibold text-white">
+          <h2 id="recent-activity" className="mb-4 text-sm font-semibold tracking-wide text-slate-300">
             Recent activity
           </h2>
           <EmptyState
@@ -148,15 +157,15 @@ export default function Dashboard() {
 
         {/* Getting started */}
         <section aria-labelledby="getting-started" className="lg:col-span-2">
-          <h2 id="getting-started" className="mb-4 text-sm font-semibold text-white">
+          <h2 id="getting-started" className="mb-4 text-sm font-semibold tracking-wide text-slate-300">
             Getting started
           </h2>
-          <ol className="card divide-y divide-white/5">
+          <ol className="card sheen divide-y divide-white/5 overflow-hidden">
             {checklist.map(({ label, done, to }) => (
               <li key={label}>
                 <Link
                   to={to}
-                  className="flex items-center gap-3 px-5 py-4 text-sm transition-colors hover:bg-white/5"
+                  className="group flex items-center gap-3 px-5 py-4 text-sm transition-colors hover:bg-white/5"
                 >
                   {done ? (
                     <CheckCircle2 className="size-4 shrink-0 text-accent-400" aria-hidden="true" />
@@ -166,7 +175,10 @@ export default function Dashboard() {
                   <span className={done ? 'text-slate-500 line-through' : 'text-slate-200'}>
                     {label}
                   </span>
-                  <ArrowRight className="ml-auto size-3.5 text-slate-600" aria-hidden="true" />
+                  <ArrowRight
+                    className="ml-auto size-3.5 text-slate-600 transition-all duration-150 group-hover:translate-x-0.5 group-hover:text-accent-400"
+                    aria-hidden="true"
+                  />
                 </Link>
               </li>
             ))}

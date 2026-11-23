@@ -17,19 +17,19 @@ export default function Sidebar({ collapsed, onToggleCollapse, mobileOpen, onClo
       ) : null}
 
       <aside
-        className={`fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-white/5 bg-surface-900 transition-[transform,width] duration-200 ease-out lg:translate-x-0 ${width} ${
+        className={`fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-white/10 bg-surface-900/80 shadow-2xl shadow-black/40 backdrop-blur-xl transition-[transform,width] duration-200 ease-out lg:translate-x-0 ${width} ${
           mobileOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         {/* Brand */}
-        <div className="flex h-16 items-center gap-3 border-b border-white/5 px-4">
-          <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-accent-500/15 text-accent-400 ring-1 ring-accent-500/25">
+        <div className="flex h-16 items-center gap-3 border-b border-white/10 px-4">
+          <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-accent-400 to-glow-500 text-surface-950 shadow-lg shadow-accent-500/30 ring-1 ring-inset ring-white/25">
             <Activity className="size-5" aria-hidden="true" />
           </span>
           {!collapsed ? (
             <div className="min-w-0">
               <p className="truncate text-sm font-semibold text-white">CreatorPulse AI</p>
-              <p className="truncate text-[11px] text-slate-500">Content intelligence</p>
+              <p className="truncate text-[11px] text-accent-400/80">Content intelligence</p>
             </div>
           ) : null}
           <button
@@ -52,26 +52,41 @@ export default function Sidebar({ collapsed, onToggleCollapse, mobileOpen, onClo
               onClick={onCloseMobile}
               title={collapsed ? label : undefined}
               className={({ isActive }) =>
-                `group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors ${
+                `group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-all duration-150 ${
                   isActive
-                    ? 'bg-accent-500/10 font-medium text-accent-300 ring-1 ring-accent-500/20'
-                    : 'text-slate-400 hover:bg-white/5 hover:text-slate-100'
+                    ? 'bg-gradient-to-r from-accent-500/20 to-accent-500/[0.04] font-semibold text-white shadow-inner shadow-accent-500/10 ring-1 ring-accent-500/25'
+                    : 'text-slate-400 hover:translate-x-0.5 hover:bg-white/5 hover:text-slate-100'
                 } ${collapsed ? 'lg:justify-center lg:px-0' : ''}`
               }
             >
-              <Icon className="size-[18px] shrink-0" aria-hidden="true" />
-              <span className={collapsed ? 'lg:hidden' : ''}>{label}</span>
+              {({ isActive }) => (
+                <>
+                  {isActive ? (
+                    <span
+                      className="absolute left-0 top-1/2 h-6 w-[3px] -translate-y-1/2 rounded-r-full bg-accent-400 shadow-[0_0_12px_2px] shadow-accent-400/50"
+                      aria-hidden="true"
+                    />
+                  ) : null}
+                  <Icon
+                    className={`size-[18px] shrink-0 transition-colors ${
+                      isActive ? 'text-accent-300' : 'text-slate-500 group-hover:text-slate-300'
+                    }`}
+                    aria-hidden="true"
+                  />
+                  <span className={collapsed ? 'lg:hidden' : ''}>{label}</span>
+                </>
+              )}
             </NavLink>
           ))}
         </nav>
 
         {/* Collapse control */}
-        <div className="hidden border-t border-white/5 p-3 lg:block">
+        <div className="hidden border-t border-white/10 p-3 lg:block">
           <button
             type="button"
             onClick={onToggleCollapse}
             aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-            className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-slate-400 transition-colors hover:bg-white/5 hover:text-slate-100 ${
+            className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-slate-400 transition-colors hover:bg-white/5 hover:text-slate-100 ${
               collapsed ? 'justify-center px-0' : ''
             }`}
           >

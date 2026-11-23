@@ -1,19 +1,23 @@
 @import "tailwindcss";
 
 @theme {
-  /* Surfaces: navy / charcoal */
-  --color-surface-950: #080c14;
-  --color-surface-900: #0b1220;
-  --color-surface-850: #0f172a;
-  --color-surface-800: #141d2f;
-  --color-surface-700: #1c2740;
-  --color-surface-600: #2a3754;
+  /* Surfaces — saturated navy, lifted well off pure black */
+  --color-surface-950: #0d1326;
+  --color-surface-900: #141c33;
+  --color-surface-850: #1a2340;
+  --color-surface-800: #1f2a4a;
+  --color-surface-700: #2a3760;
+  --color-surface-600: #3a4a7a;
 
-  /* Accent: subtle green */
+  /* Accent — emerald */
   --color-accent-300: #6ee7b7;
   --color-accent-400: #34d399;
   --color-accent-500: #10b981;
   --color-accent-600: #059669;
+
+  /* Secondary accent for gradients */
+  --color-glow-400: #22d3ee;
+  --color-glow-500: #0ea5e9;
 
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
@@ -27,6 +31,11 @@
 
   body {
     @apply bg-surface-950 text-slate-200 font-sans antialiased;
+    background-image:
+      radial-gradient(60rem 40rem at 12% -10%, rgba(16, 185, 129, 0.12), transparent 60%),
+      radial-gradient(50rem 35rem at 95% 0%, rgba(14, 165, 233, 0.1), transparent 55%),
+      radial-gradient(45rem 45rem at 70% 110%, rgba(99, 102, 241, 0.08), transparent 60%);
+    background-attachment: fixed;
   }
 
   * {
@@ -35,12 +44,17 @@
   }
 
   ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 9px;
+    height: 9px;
   }
   ::-webkit-scrollbar-thumb {
     background-color: var(--color-surface-700);
     border-radius: 9999px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-surface-600);
   }
   ::-webkit-scrollbar-track {
     background: transparent;
@@ -49,8 +63,33 @@
   :focus-visible {
     @apply outline-none ring-2 ring-accent-500/60 ring-offset-2 ring-offset-surface-950;
   }
+
+  ::selection {
+    background-color: rgba(16, 185, 129, 0.3);
+    color: #fff;
+  }
 }
 
+/* Glassy raised panel with a top sheen */
 @utility card {
-  @apply rounded-xl border border-white/5 bg-surface-900/80 shadow-lg shadow-black/20;
+  @apply relative rounded-2xl border border-white/10 bg-surface-900/70 shadow-xl shadow-black/30 backdrop-blur-xl;
+}
+
+/* Hairline highlight along a card's top edge */
+@utility sheen {
+  &::before {
+    content: "";
+    @apply pointer-events-none absolute inset-x-5 top-0 h-px rounded-full;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.22),
+      transparent
+    );
+  }
+}
+
+@utility text-gradient {
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(135deg, #ffffff 10%, #a7f3d0 55%, #67e8f9 100%);
 }

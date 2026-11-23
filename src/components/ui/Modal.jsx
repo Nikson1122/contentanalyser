@@ -26,7 +26,7 @@ export default function Modal({ open, onClose, title, description, footer, child
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center p-0 sm:items-center sm:p-6">
       <div
-        className="absolute inset-0 bg-surface-950/80 backdrop-blur-sm"
+        className="absolute inset-0 bg-surface-950/75 backdrop-blur-md"
         onClick={onClose}
         aria-hidden="true"
       />
@@ -36,18 +36,18 @@ export default function Modal({ open, onClose, title, description, footer, child
         aria-modal="true"
         aria-label={title}
         tabIndex={-1}
-        className={`relative z-10 flex max-h-[90vh] w-full flex-col overflow-hidden rounded-t-2xl border border-white/10 bg-surface-900 shadow-2xl shadow-black/50 sm:rounded-2xl ${widths[size]}`}
+        className={`sheen relative z-10 flex max-h-[90vh] w-full flex-col overflow-hidden rounded-t-2xl border border-white/12 bg-surface-900/95 shadow-2xl shadow-black/60 backdrop-blur-2xl sm:rounded-2xl ${widths[size]}`}
       >
-        <div className="flex items-start justify-between gap-4 border-b border-white/5 px-6 py-5">
+        <div className="flex items-start justify-between gap-4 border-b border-white/10 px-6 py-5">
           <div>
-            <h2 className="text-lg font-semibold text-white">{title}</h2>
+            <h2 className="text-lg font-bold text-white">{title}</h2>
             {description ? <p className="mt-1 text-sm text-slate-400">{description}</p> : null}
           </div>
           <button
             type="button"
             onClick={onClose}
             aria-label="Close dialog"
-            className="rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-white/5 hover:text-white"
+            className="rounded-xl p-1.5 text-slate-400 transition-colors hover:bg-white/10 hover:text-white"
           >
             <X className="size-5" aria-hidden="true" />
           </button>
@@ -56,7 +56,7 @@ export default function Modal({ open, onClose, title, description, footer, child
         <div className="flex-1 overflow-y-auto px-6 py-5">{children}</div>
 
         {footer ? (
-          <div className="flex flex-wrap justify-end gap-2 border-t border-white/5 bg-surface-850/60 px-6 py-4">
+          <div className="flex flex-wrap justify-end gap-2 border-t border-white/10 bg-black/20 px-6 py-4">
             {footer}
           </div>
         ) : null}

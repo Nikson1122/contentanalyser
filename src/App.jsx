@@ -1,19 +1,14 @@
 import { Route, Routes } from 'react-router-dom'
 import DashboardLayout from './components/layout/DashboardLayout'
 import { PagesProvider } from './context/PagesContext'
+import { ImportsProvider } from './context/ImportsContext'
 import Dashboard from './pages/Dashboard'
 import MyPages from './pages/MyPages'
+import CsvImports from './pages/CsvImports'
 import ModulePlaceholder from './pages/ModulePlaceholder'
 import NotFound from './pages/NotFound'
 
 const PLACEHOLDER_ROUTES = [
-  {
-    path: '/imports',
-    eyebrow: 'CSV Imports',
-    title: 'Import your data',
-    description: 'Bring historical performance exports into a page workspace.',
-    note: 'Import handling is not part of this UI foundation yet.',
-  },
   {
     path: '/analytics',
     eyebrow: 'Analytics',
@@ -54,16 +49,19 @@ const PLACEHOLDER_ROUTES = [
 export default function App() {
   return (
     <PagesProvider>
-      <Routes>
-        <Route element={<DashboardLayout />}>
-          <Route index element={<Dashboard />} />
-          <Route path="/pages" element={<MyPages />} />
-          {PLACEHOLDER_ROUTES.map(({ path, ...props }) => (
-            <Route key={path} path={path} element={<ModulePlaceholder {...props} />} />
-          ))}
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
+      <ImportsProvider>
+        <Routes>
+          <Route element={<DashboardLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="/pages" element={<MyPages />} />
+            <Route path="/imports" element={<CsvImports />} />
+            {PLACEHOLDER_ROUTES.map(({ path, ...props }) => (
+              <Route key={path} path={path} element={<ModulePlaceholder {...props} />} />
+            ))}
+            <Route path="*" element={<NotFound />} />
+          </Route>
+        </Routes>
+      </ImportsProvider>
     </PagesProvider>
   )
 }
