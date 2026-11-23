@@ -3,6 +3,7 @@ const TONES = {
   warning: 'border-amber-500/30 bg-amber-500/10 text-amber-300',
   danger: 'border-red-500/30 bg-red-500/10 text-red-300',
   info: 'border-glow-400/30 bg-glow-500/10 text-glow-400',
+  violet: 'border-violet-400/30 bg-violet-500/10 text-violet-300',
   neutral: 'border-white/10 bg-white/5 text-slate-300',
 }
 
