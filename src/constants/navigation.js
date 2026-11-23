@@ -5,6 +5,7 @@ import {
   BarChart3,
   Telescope,
   Sparkles,
+  FlaskConical,
   CalendarDays,
   Settings,
 } from 'lucide-react'
@@ -20,6 +21,7 @@ export const navigation = [
   { label: 'Analytics', to: '/analytics', icon: BarChart3 },
   { label: 'Competitor Research', to: '/competitors', icon: Telescope },
   { label: 'AI Content Studio', to: '/studio', icon: Sparkles },
+  { label: 'Video Learning Lab', to: '/video-lab', icon: FlaskConical },
   { label: 'Content Calendar', to: '/calendar', icon: CalendarDays },
   { label: 'Settings', to: '/settings', icon: Settings },
 ]

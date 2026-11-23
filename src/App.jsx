@@ -6,12 +6,14 @@ import { ImportsProvider } from './context/ImportsContext'
 import { CompetitorsProvider } from './context/CompetitorsContext'
 import { StudioProvider } from './context/StudioContext'
 import { CalendarProvider } from './context/CalendarContext'
+import { VideoLabProvider } from './context/VideoLabContext'
 import Dashboard from './pages/Dashboard'
 import MyPages from './pages/MyPages'
 import CsvImports from './pages/CsvImports'
 import Competitors from './pages/Competitors'
 import ContentStudio from './pages/ContentStudio'
 import ContentCalendar from './pages/ContentCalendar'
+import VideoLearningLab from './pages/VideoLearningLab'
 import ModulePlaceholder from './pages/ModulePlaceholder'
 import NotFound from './pages/NotFound'
 
@@ -43,28 +45,31 @@ export default function App() {
         <CompetitorsProvider>
           <StudioProvider>
             <CalendarProvider>
-              <Routes>
-                <Route element={<DashboardLayout />}>
-                  <Route index element={<Dashboard />} />
-                  <Route path="/pages" element={<MyPages />} />
-                  <Route path="/imports" element={<CsvImports />} />
-                  <Route path="/competitors" element={<Competitors />} />
-                  <Route path="/studio" element={<ContentStudio />} />
-                <Route path="/calendar" element={<ContentCalendar />} />
-                  <Route
-                    path="/analytics"
-                    element={
-                      <Suspense fallback={<RouteFallback />}>
-                        <Analytics />
-                      </Suspense>
-                    }
-                  />
-                  {PLACEHOLDER_ROUTES.map(({ path, ...props }) => (
-                    <Route key={path} path={path} element={<ModulePlaceholder {...props} />} />
-                  ))}
-                  <Route path="*" element={<NotFound />} />
-                </Route>
-              </Routes>
+              <VideoLabProvider>
+                <Routes>
+                  <Route element={<DashboardLayout />}>
+                    <Route index element={<Dashboard />} />
+                    <Route path="/pages" element={<MyPages />} />
+                    <Route path="/imports" element={<CsvImports />} />
+                    <Route path="/competitors" element={<Competitors />} />
+                    <Route path="/studio" element={<ContentStudio />} />
+                  <Route path="/calendar" element={<ContentCalendar />} />
+                  <Route path="/video-lab" element={<VideoLearningLab />} />
+                    <Route
+                      path="/analytics"
+                      element={
+                        <Suspense fallback={<RouteFallback />}>
+                          <Analytics />
+                        </Suspense>
+                      }
+                    />
+                    {PLACEHOLDER_ROUTES.map(({ path, ...props }) => (
+                      <Route key={path} path={path} element={<ModulePlaceholder {...props} />} />
+                    ))}
+                    <Route path="*" element={<NotFound />} />
+                  </Route>
+                </Routes>
+              </VideoLabProvider>
             </CalendarProvider>
           </StudioProvider>
         </CompetitorsProvider>
