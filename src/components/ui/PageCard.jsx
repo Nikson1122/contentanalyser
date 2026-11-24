@@ -1,4 +1,4 @@
-import { Globe2, Languages, Pencil, Tag, Trash2 } from 'lucide-react'
+import { Archive, Globe2, Languages, Pencil, Tag } from 'lucide-react'
 
 function Meta({ icon: Icon, children }) {
   if (!children) return null
@@ -35,10 +35,10 @@ export default function PageCard({ page, onEdit, onDelete }) {
           <button
             type="button"
             onClick={() => onDelete?.(page)}
-            aria-label={`Remove ${page.name}`}
-            className="rounded-md p-1.5 text-slate-400 transition-colors hover:bg-red-500/10 hover:text-red-300"
+            aria-label={`Archive ${page.name}`}
+            className="rounded-md p-1.5 text-slate-400 transition-colors hover:bg-amber-500/10 hover:text-amber-300"
           >
-            <Trash2 className="size-4" aria-hidden="true" />
+            <Archive className="size-4" aria-hidden="true" />
           </button>
         </div>
       </div>
